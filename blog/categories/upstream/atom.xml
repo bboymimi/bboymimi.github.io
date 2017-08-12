@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Upstream | Gavin Guo]]></title>
   <link href="http://bboymimi.github.io/blog/categories/upstream/atom.xml" rel="self"/>
   <link href="http://bboymimi.github.io/"/>
-  <updated>2017-08-12T22:37:48+08:00</updated>
+  <updated>2017-08-12T22:43:42+08:00</updated>
   <id>http://bboymimi.github.io/</id>
   <author>
     <name><![CDATA[Gavin Guo]]></name>
@@ -30,7 +30,7 @@ Ubuntu 15.04 Vivid 3.19 (2015 04發行)
 <a href="https://wiki.ubuntu.com/Kernel/LTSEnablementStack">https://wiki.ubuntu.com/Kernel/LTSEnablementStack</a>
 接下來切入主題，要如何送patch做backport，也就是俗稱的SRU(Standard Release Update)程序[3]。一般Ubuntu kernel是不收沒有上Upstream的patch，所以要記得先送kernel upstream再cherry-pick回來。拿個自己的bug為例 <a href="https://lkml.org/lkml/2015/4/23/228%EF%BC%9A">https://lkml.org/lkml/2015/4/23/228%EF%BC%9A</a>
 commit 4066c33d0308f87e9a3b0c7fafb9141c0bfbfa77
-Author: Gavin Guo <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#x67;&#x61;&#x76;&#105;&#x6e;&#x2e;&#103;&#117;&#x6f;&#x40;&#99;&#x61;&#110;&#111;&#x6e;&#x69;&#x63;&#x61;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#103;&#x61;&#118;&#105;&#110;&#x2e;&#x67;&#117;&#x6f;&#64;&#x63;&#x61;&#110;&#111;&#x6e;&#105;&#x63;&#97;&#108;&#46;&#x63;&#111;&#109;</a>
+Author: Gavin Guo <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#103;&#97;&#x76;&#105;&#110;&#46;&#x67;&#117;&#x6f;&#64;&#x63;&#97;&#x6e;&#x6f;&#x6e;&#x69;&#x63;&#x61;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x67;&#x61;&#x76;&#x69;&#x6e;&#x2e;&#x67;&#117;&#x6f;&#x40;&#x63;&#x61;&#x6e;&#x6f;&#x6e;&#x69;&#99;&#x61;&#108;&#x2e;&#99;&#x6f;&#109;</a>
 Date: Wed Jun 24 16:55:54 2015 -0700
 mm/slab_common: support the slub_debug boot option on specific object size
 因為slub_debug在實作上有些問題，導致沒有辦法把slub_debug限制在某些object size上面。上面commit是bug fix。由git show可以知道這是在June 24才剛進去mainline(在v4.2-rc1的merge windows裡面)。因此所有的Ubuntu release都受影響。進而需要backport這個commit到所有的Ubuntu release。最後因為某些原因，SRU只做Trusty, Utopic, and Vivd。
@@ -85,7 +85,7 @@ sudo dpkg -i xxx.deb</p>
 <p>7) 註冊Ubuntu kernel team mailing list
 到 <a href="https://lists.ubuntu.com/mailman/listinfo/kernel-team">https://lists.ubuntu.com/mailman/listinfo/kernel-team</a> 註冊maillist之後就會收到Ubuntu kernel開發的email。
 8) 用git送出patch到Ubuntu kernel mailing list
-git send-email &ndash;no-chain-reply-to &ndash;suppress-cc all &ndash;to &ldquo;<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#107;&#x65;&#114;&#110;&#x65;&#108;&#x2d;&#116;&#101;&#97;&#x6d;&#x40;&#108;&#x69;&#115;&#x74;&#x73;&#x2e;&#117;&#x62;&#117;&#x6e;&#x74;&#117;&#x2e;&#99;&#x6f;&#109;">&#x6b;&#x65;&#x72;&#x6e;&#101;&#x6c;&#x2d;&#116;&#x65;&#97;&#109;&#64;&#x6c;&#x69;&#x73;&#x74;&#115;&#x2e;&#117;&#x62;&#x75;&#110;&#116;&#x75;&#x2e;&#x63;&#x6f;&#109;</a>&rdquo; 000* &ndash;force</p>
+git send-email &ndash;no-chain-reply-to &ndash;suppress-cc all &ndash;to &ldquo;<a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#x6b;&#x65;&#x72;&#110;&#101;&#x6c;&#x2d;&#x74;&#x65;&#97;&#109;&#64;&#108;&#x69;&#x73;&#x74;&#115;&#46;&#117;&#98;&#x75;&#x6e;&#x74;&#x75;&#x2e;&#99;&#x6f;&#109;">&#x6b;&#x65;&#114;&#110;&#101;&#x6c;&#45;&#116;&#101;&#x61;&#x6d;&#x40;&#x6c;&#x69;&#x73;&#x74;&#115;&#x2e;&#117;&#98;&#x75;&#x6e;&#116;&#117;&#46;&#x63;&#x6f;&#x6d;</a>&rdquo; 000* &ndash;force</p>
 
 <h1>在送出patch之前，一定要先送一份到自己的mail，檢查有無錯誤內容。</h1>
 
