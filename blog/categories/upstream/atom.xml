@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Gavin Guo]]></title>
-  <link href="http://bboymimi.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Upstream | Gavin Guo]]></title>
+  <link href="http://bboymimi.github.io/blog/categories/upstream/atom.xml" rel="self"/>
   <link href="http://bboymimi.github.io/"/>
   <updated>2017-08-12T22:37:48+08:00</updated>
   <id>http://bboymimi.github.io/</id>
@@ -30,7 +30,7 @@ Ubuntu 15.04 Vivid 3.19 (2015 04發行)
 <a href="https://wiki.ubuntu.com/Kernel/LTSEnablementStack">https://wiki.ubuntu.com/Kernel/LTSEnablementStack</a>
 接下來切入主題，要如何送patch做backport，也就是俗稱的SRU(Standard Release Update)程序[3]。一般Ubuntu kernel是不收沒有上Upstream的patch，所以要記得先送kernel upstream再cherry-pick回來。拿個自己的bug為例 <a href="https://lkml.org/lkml/2015/4/23/228%EF%BC%9A">https://lkml.org/lkml/2015/4/23/228%EF%BC%9A</a>
 commit 4066c33d0308f87e9a3b0c7fafb9141c0bfbfa77
-Author: Gavin Guo <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#103;&#x61;&#118;&#105;&#110;&#x2e;&#103;&#117;&#111;&#64;&#x63;&#x61;&#x6e;&#x6f;&#x6e;&#105;&#x63;&#97;&#x6c;&#46;&#x63;&#111;&#x6d;">&#103;&#97;&#118;&#x69;&#110;&#x2e;&#x67;&#117;&#x6f;&#64;&#99;&#x61;&#x6e;&#x6f;&#110;&#x69;&#99;&#97;&#108;&#x2e;&#x63;&#x6f;&#109;</a>
+Author: Gavin Guo <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#x67;&#x61;&#x76;&#105;&#x6e;&#x2e;&#103;&#117;&#x6f;&#x40;&#99;&#x61;&#110;&#111;&#x6e;&#x69;&#x63;&#x61;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#103;&#x61;&#118;&#105;&#110;&#x2e;&#x67;&#117;&#x6f;&#64;&#x63;&#x61;&#110;&#111;&#x6e;&#105;&#x63;&#97;&#108;&#46;&#x63;&#111;&#109;</a>
 Date: Wed Jun 24 16:55:54 2015 -0700
 mm/slab_common: support the slub_debug boot option on specific object size
 因為slub_debug在實作上有些問題，導致沒有辦法把slub_debug限制在某些object size上面。上面commit是bug fix。由git show可以知道這是在June 24才剛進去mainline(在v4.2-rc1的merge windows裡面)。因此所有的Ubuntu release都受影響。進而需要backport這個commit到所有的Ubuntu release。最後因為某些原因，SRU只做Trusty, Utopic, and Vivd。
@@ -85,7 +85,7 @@ sudo dpkg -i xxx.deb</p>
 <p>7) 註冊Ubuntu kernel team mailing list
 到 <a href="https://lists.ubuntu.com/mailman/listinfo/kernel-team">https://lists.ubuntu.com/mailman/listinfo/kernel-team</a> 註冊maillist之後就會收到Ubuntu kernel開發的email。
 8) 用git送出patch到Ubuntu kernel mailing list
-git send-email &ndash;no-chain-reply-to &ndash;suppress-cc all &ndash;to &ldquo;<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x6b;&#101;&#114;&#x6e;&#x65;&#108;&#45;&#116;&#101;&#x61;&#x6d;&#64;&#x6c;&#105;&#x73;&#x74;&#x73;&#x2e;&#x75;&#98;&#117;&#110;&#x74;&#x75;&#x2e;&#99;&#111;&#109;">&#107;&#101;&#114;&#x6e;&#101;&#108;&#45;&#x74;&#101;&#97;&#x6d;&#64;&#x6c;&#105;&#115;&#116;&#115;&#x2e;&#x75;&#98;&#x75;&#110;&#116;&#x75;&#46;&#x63;&#111;&#109;</a>&rdquo; 000* &ndash;force</p>
+git send-email &ndash;no-chain-reply-to &ndash;suppress-cc all &ndash;to &ldquo;<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#107;&#x65;&#114;&#110;&#x65;&#108;&#x2d;&#116;&#101;&#97;&#x6d;&#x40;&#108;&#x69;&#115;&#x74;&#x73;&#x2e;&#117;&#x62;&#117;&#x6e;&#x74;&#117;&#x2e;&#99;&#x6f;&#109;">&#x6b;&#x65;&#x72;&#x6e;&#101;&#x6c;&#x2d;&#116;&#x65;&#97;&#109;&#64;&#x6c;&#x69;&#x73;&#x74;&#115;&#x2e;&#117;&#x62;&#x75;&#110;&#116;&#x75;&#x2e;&#x63;&#x6f;&#109;</a>&rdquo; 000* &ndash;force</p>
 
 <h1>在送出patch之前，一定要先送一份到自己的mail，檢查有無錯誤內容。</h1>
 
@@ -100,132 +100,6 @@ Reference:
 [4]. BuildYourOwnKernel <a href="https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel">https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel</a></p>
 
 <h1>kernel #ubuntu #upstream #tlkh_upstream</h1>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Kernel Debugging 小技巧]]></title>
-    <link href="http://bboymimi.github.io/blog/2017/08/12/kernel-debugging-xiao-ji-qiao/"/>
-    <updated>2017-08-12T17:09:44+08:00</updated>
-    <id>http://bboymimi.github.io/blog/2017/08/12/kernel-debugging-xiao-ji-qiao</id>
-    <content type="html"><![CDATA[<p>（節錄自 Gavin Guo <a href="https://twlinuxkernelhackers.hackpad.com/Wiki-M37dy9c6AZt#:h=Debugging">原始貼文</a>）</p>
-
-<h1>coredump</h1>
-
-<p>相信很多時候在看到 coredump 的時候裡面會有一段：</p>
-
-<pre><code>Code: 00 49 8b 50 08 4d 8b 28 49 8b 40 10 4d 85 
-ed 0f 84 5a 01 00 00 48 85 c0 0f 84 51 01 00 00 
-49 63 44 24 20 49 8b 3c 24 48 8d 4a 01 &lt;49&gt; 8b 5c 
-05 00 4c 89 e8 65 48 0f c7 0f 0f 94 c0 84 c0 74 
-b5 49
-</code></pre>
-
-<p>其實這個在沒有debug symbol的情況下可以利用kernel
-source裡面的decodecode script快速的知道fault的問題所在：</p>
-
-<pre><code class="bash">$ echo "Code: 00 49 8b 50 08 4d 8b 28 49 8b 40 10 
-4d 85 ed 0f 84 5a 01 00 00 48 85 c0 0f 84 51 01 
-00 00 49 63 44 24 20 49 8b 3c 24 48 8d 4a 01 &lt;49&gt; 
-8b 5c 05 00 4c 89 e8 65 48 0f c7 0f 0f 94 c0 84 
-c0 74 b5 49" | ./scripts/decodecode 
-Code: 00 49 8b 50 08 4d 8b 28 49 8b 40 10 4d 85 
-ed 0f 84 5a 01 00 00 48 85 c0 0f 84 51 01 00 00 
-49 63 44 24 20 49 8b 3c 24 48 8d 4a 01 &lt;49&gt; 8b 5c 
-05 00 4c 89 e8 65 48 0f c7 0f 0f 94 c0 84 c0 74 
-b5 49
-All code
-========
-0: 00 49 8b add %cl,-0x75(%rcx)
-3: 50 push %rax
-4: 08 4d 8b or %cl,-0x75(%rbp)
-7: 28 49 8b sub %cl,-0x75(%rcx)
-a: 40 10 4d 85 adc %cl,-0x7b(%rbp)
-e: ed in (%dx),%eax
-f: 0f 84 5a 01 00 00 je 0x16f
-15: 48 85 c0 test %rax,%rax
-18: 0f 84 51 01 00 00 je 0x16f
-1e: 49 63 44 24 20 movslq 0x20(%r12),%rax
-23: 49 8b 3c 24 mov (%r12),%rdi
-27: 48 8d 4a 01 lea 0x1(%rdx),%rcx
-2b:* 49 8b 5c 05 00 mov 0x0(%r13,%rax,1),%rbx &lt;-- trapping instruction
-30: 4c 89 e8 mov %r13,%rax
-33: 65 48 0f c7 0f cmpxchg16b %gs:(%rdi)
-38: 0f 94 c0 sete %al
-3b: 84 c0 test %al,%al
-3d: 74 b5 je 0xfffffffffffffff4
-3f: 49 rex.WB
-Code starting with the faulting instruction
-===========================================
-0: 49 8b 5c 05 00 mov 0x0(%r13,%rax,1),%rbx
-5: 4c 89 e8 mov %r13,%rax
-8: 65 48 0f c7 0f cmpxchg16b %gs:(%rdi)
-d: 0f 94 c0 sete %al
-10: 84 c0 test %al,%al
-12: 74 b5 je 0xffffffffffffffc9
-14: 49 rex.WB
-</code></pre>
-
-<h1>crashdump</h1>
-
-<p>一般我們在做 server 的 maintaining 的時候會從客戶那邊拿到 crashdump 的巨大 memory dump 檔案，之後再用 crash 這個 tool 打開，看 dmesg，撈 memory data，嘗試找出問題的所在。那麼如果你可以 access 到機器的情況下，有沒有辦法用 crash 來看當下的 memory data，進而檢查系統 work 的正不正常？？有的</p>
-
-<pre><code>$ sudo apt-get install -y crash
-
-$ sudo crash /usr/lib/debug/boot/vmlinux-3.13.0-48-generic --mod /usr/lib/debug/lib/modules/3.13.0-48-generic/ /proc/kcore
-
-crash 7.0.3
-Copyright (C) 2002-2013  Red Hat, Inc.
-Copyright (C) 2004, 2005, 2006, 2010  IBM Corporation
-Copyright (C) 1999-2006  Hewlett-Packard Co
-Copyright (C) 2005, 2006, 2011, 2012  Fujitsu Limited
-Copyright (C) 2006, 2007  VA Linux Systems Japan K.K.
-Copyright (C) 2005, 2011  NEC Corporation
-Copyright (C) 1999, 2002, 2007  Silicon Graphics, Inc.
-Copyright (C) 1999, 2000, 2001, 2002  Mission Critical Linux, Inc.
-This program is free software, covered by the GNU General Public License,
-and you are welcome to change it and/or distribute copies of it under
-certain conditions.  Enter "help copying" to see the conditions.
-This program has absolutely no warranty.  Enter "help warranty" for details.
-
-GNU gdb (GDB) 7.6
-Copyright (C) 2013 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
-and "show warranty" for details.
-This GDB was configured as "x86_64-unknown-linux-gnu"...
-
-      KERNEL: /usr/lib/debug/boot/vmlinux-3.13.0-48-generic
-    DUMPFILE: /proc/kcore
-        CPUS: 4
-        DATE: Mon Jun 15 21:11:02 2015
-      UPTIME: 00:29:43
-LOAD AVERAGE: 0.15, 0.05, 0.06
-       TASKS: 224
-    NODENAME: gavin-Inspiron-7447
-     RELEASE: 3.13.0-48-generic
-     VERSION: #80~precise1hf00073670v20150319b2-Ubuntu SMP Thu Mar 19 11:01:43
-     MACHINE: x86_64  (2793 Mhz)
-      MEMORY: 3.9 GB
-         PID: 2370
-     COMMAND: "crash"
-        TASK: ffff8800b30fb000  [THREAD_INFO: ffff8800b4a74000]
-         CPU: 0
-       STATE: TASK_RUNNING (ACTIVE)
-</code></pre>
-
-<p>可以嘗試看看下面的指令</p>
-
-<pre><code>crash&gt; p *(struct kmem_cache *) kmalloc_caches
-crash&gt; p saved_command_line
-crash&gt; p uts_init_ns
-crash&gt; log
-crash&gt; kmem -S
-crash&gt; help
-</code></pre>
-
-<p>當然會有疑惑，這能不能直接把 kernel 停下來，像是 gdb 一樣 debug？答案當然是不行。</p>
 ]]></content>
   </entry>
   

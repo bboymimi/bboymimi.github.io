@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://bboymimi.github.io/blog/2017/08/12/10-steps-to-submit-patches-to-the-ubuntu-kernel/</loc>
+<lastmod>2017-08-12T22:17:42+08:00</lastmod>
+</url>
+<url>
+<loc>http://bboymimi.github.io/blog/2017/08/12/kernel-debugging-xiao-ji-qiao/</loc>
+<lastmod>2017-08-12T17:09:44+08:00</lastmod>
+</url>
+<url>
 <loc>http://bboymimi.github.io/blog/archives/</loc>
 </url>
 <url>
@@ -8,5 +16,17 @@
 </url>
 <url>
 <loc>http://bboymimi.github.io/categories/</loc>
+</url>
+<url>
+<loc>http://bboymimi.github.io/blog/categories/kernel/</loc>
+</url>
+<url>
+<loc>http://bboymimi.github.io/blog/categories/debug/</loc>
+</url>
+<url>
+<loc>http://bboymimi.github.io/blog/categories/kdump/</loc>
+</url>
+<url>
+<loc>http://bboymimi.github.io/blog/categories/upstream/</loc>
 </url>
 </urlset>
