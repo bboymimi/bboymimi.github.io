@@ -1,93 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Gavin Guo</title>
-  <meta name="author" content="Gavin Guo">
-
-  
-  <meta name="description" content="（節錄自 Gavin Guo 原始貼文） coredump 相信很多時候在看到 coredump 的時候裡面會有一段： Code: 00 49 8b 50 08 4d 8b 28 49 8b 40 10 4d 85 ed 0f 84 5a 01 00 00 48 85 c0 0f 84 51 01 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://bboymimi.github.io/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Gavin Guo" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Gavin Guo</a></h1>
-  
-    <h2>My Life, Sports and Works</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="bboymimi.github.io">
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Category: Kdump | Gavin Guo]]></title>
+  <link href="http://bboymimi.github.io/blog/categories/kdump/atom.xml" rel="self"/>
+  <link href="http://bboymimi.github.io/"/>
+  <updated>2017-08-12T17:24:29+08:00</updated>
+  <id>http://bboymimi.github.io/</id>
+  <author>
+    <name><![CDATA[Gavin Guo]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2017/08/12/kernel-debugging-xiao-ji-qiao/">Kernel Debugging 小技巧</a></h1>
-    
-    
-      <p class="meta">
-        
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
-
-
-
-<time class='entry-date' datetime='2017-08-12T17:09:44+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>5:09 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>（節錄自 Gavin Guo <a href="https://twlinuxkernelhackers.hackpad.com/Wiki-M37dy9c6AZt#:h=Debugging">原始貼文</a>）</p>
+  
+  <entry>
+    <title type="html"><![CDATA[Kernel Debugging 小技巧]]></title>
+    <link href="http://bboymimi.github.io/blog/2017/08/12/kernel-debugging-xiao-ji-qiao/"/>
+    <updated>2017-08-12T17:09:44+08:00</updated>
+    <id>http://bboymimi.github.io/blog/2017/08/12/kernel-debugging-xiao-ji-qiao</id>
+    <content type="html"><![CDATA[<p>（節錄自 Gavin Guo <a href="https://twlinuxkernelhackers.hackpad.com/Wiki-M37dy9c6AZt#:h=Debugging">原始貼文</a>）</p>
 
 <h1>coredump</h1>
 
@@ -205,68 +136,7 @@ crash&gt; help
 </code></pre>
 
 <p>當然會有疑惑，這能不能直接把 kernel 停下來，像是 gdb 一樣 debug？答案當然是不行。</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2017/08/12/kernel-debugging-xiao-ji-qiao/">Kernel Debugging 小技巧</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2017 - Gavin Guo -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>
