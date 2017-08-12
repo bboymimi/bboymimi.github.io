@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Kernel | Gavin Guo]]></title>
+  <title><![CDATA[Category: kernel | Gavin Guo]]></title>
   <link href="http://bboymimi.github.io/blog/categories/kernel/atom.xml" rel="self"/>
   <link href="http://bboymimi.github.io/"/>
-  <updated>2017-08-12T18:54:17+08:00</updated>
+  <updated>2017-08-12T21:20:39+08:00</updated>
   <id>http://bboymimi.github.io/</id>
   <author>
     <name><![CDATA[Gavin Guo]]></name>
