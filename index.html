@@ -1,309 +1,85 @@
 
+
+
+
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Gavin Guo</title>
-  <meta name="author" content="Gavin Guo">
-
+<html lang="en">
   
-  <meta name="description" content="（節錄自 Gavin Guo 原始貼文） coredump 相信很多時候在看到 coredump 的時候裡面會有一段： Code: 00 49 8b 50 08 4d 8b 28 49 8b 40 10 4d 85 ed 0f 84 5a 01 00 00 48 85 c0 0f 84 51 01 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://bboymimi.github.io/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Gavin Guo" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Gavin Guo</a></h1>
-  
-    <h2>My Life, Sports and Works</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="bboymimi.github.io">
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
+  <head>
+    
+      <meta charset="utf-8">
+      <title>天母國中 七年級段考分數分佈</title>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2017/08/12/kernel-debugging-xiao-ji-qiao/">Kernel Debugging 小技巧</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2017-08-12T17:09:44+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>5:09 pm</span></time>
-        
-           | <a href="/blog/2017/08/12/kernel-debugging-xiao-ji-qiao/#disqus_thread"
-             data-disqus-identifier="http://bboymimi.github.io/blog/2017/08/12/kernel-debugging-xiao-ji-qiao/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>（節錄自 Gavin Guo <a href="https://twlinuxkernelhackers.hackpad.com/Wiki-M37dy9c6AZt#:h=Debugging">原始貼文</a>）</p>
-
-<h1>coredump</h1>
-
-<p>相信很多時候在看到 coredump 的時候裡面會有一段：</p>
-
-<pre><code>Code: 00 49 8b 50 08 4d 8b 28 49 8b 40 10 4d 85 
-ed 0f 84 5a 01 00 00 48 85 c0 0f 84 51 01 00 00 
-49 63 44 24 20 49 8b 3c 24 48 8d 4a 01 &lt;49&gt; 8b 5c 
-05 00 4c 89 e8 65 48 0f c7 0f 0f 94 c0 84 c0 74 
-b5 49
-</code></pre>
-
-<p>其實這個在沒有debug symbol的情況下可以利用kernel
-source裡面的decodecode script快速的知道fault的問題所在：</p>
-
-<pre><code class="bash">$ echo "Code: 00 49 8b 50 08 4d 8b 28 49 8b 40 10 
-4d 85 ed 0f 84 5a 01 00 00 48 85 c0 0f 84 51 01 
-00 00 49 63 44 24 20 49 8b 3c 24 48 8d 4a 01 &lt;49&gt; 
-8b 5c 05 00 4c 89 e8 65 48 0f c7 0f 0f 94 c0 84 
-c0 74 b5 49" | ./scripts/decodecode 
-Code: 00 49 8b 50 08 4d 8b 28 49 8b 40 10 4d 85 
-ed 0f 84 5a 01 00 00 48 85 c0 0f 84 51 01 00 00 
-49 63 44 24 20 49 8b 3c 24 48 8d 4a 01 &lt;49&gt; 8b 5c 
-05 00 4c 89 e8 65 48 0f c7 0f 0f 94 c0 84 c0 74 
-b5 49
-All code
-========
-0: 00 49 8b add %cl,-0x75(%rcx)
-3: 50 push %rax
-4: 08 4d 8b or %cl,-0x75(%rbp)
-7: 28 49 8b sub %cl,-0x75(%rcx)
-a: 40 10 4d 85 adc %cl,-0x7b(%rbp)
-e: ed in (%dx),%eax
-f: 0f 84 5a 01 00 00 je 0x16f
-15: 48 85 c0 test %rax,%rax
-18: 0f 84 51 01 00 00 je 0x16f
-1e: 49 63 44 24 20 movslq 0x20(%r12),%rax
-23: 49 8b 3c 24 mov (%r12),%rdi
-27: 48 8d 4a 01 lea 0x1(%rdx),%rcx
-2b:* 49 8b 5c 05 00 mov 0x0(%r13,%rax,1),%rbx &lt;-- trapping instruction
-30: 4c 89 e8 mov %r13,%rax
-33: 65 48 0f c7 0f cmpxchg16b %gs:(%rdi)
-38: 0f 94 c0 sete %al
-3b: 84 c0 test %al,%al
-3d: 74 b5 je 0xfffffffffffffff4
-3f: 49 rex.WB
-Code starting with the faulting instruction
-===========================================
-0: 49 8b 5c 05 00 mov 0x0(%r13,%rax,1),%rbx
-5: 4c 89 e8 mov %r13,%rax
-8: 65 48 0f c7 0f cmpxchg16b %gs:(%rdi)
-d: 0f 94 c0 sete %al
-10: 84 c0 test %al,%al
-12: 74 b5 je 0xffffffffffffffc9
-14: 49 rex.WB
-</code></pre>
-
-<h1>crashdump</h1>
-
-<p>一般我們在做 server 的 maintaining 的時候會從客戶那邊拿到 crashdump 的巨大 memory dump 檔案，之後再用 crash 這個 tool 打開，看 dmesg，撈 memory data，嘗試找出問題的所在。那麼如果你可以 access 到機器的情況下，有沒有辦法用 crash 來看當下的 memory data，進而檢查系統 work 的正不正常？？有的</p>
-
-<pre><code>$ sudo apt-get install -y crash
-
-$ sudo crash /usr/lib/debug/boot/vmlinux-3.13.0-48-generic --mod /usr/lib/debug/lib/modules/3.13.0-48-generic/ /proc/kcore
-
-crash 7.0.3
-Copyright (C) 2002-2013  Red Hat, Inc.
-Copyright (C) 2004, 2005, 2006, 2010  IBM Corporation
-Copyright (C) 1999-2006  Hewlett-Packard Co
-Copyright (C) 2005, 2006, 2011, 2012  Fujitsu Limited
-Copyright (C) 2006, 2007  VA Linux Systems Japan K.K.
-Copyright (C) 2005, 2011  NEC Corporation
-Copyright (C) 1999, 2002, 2007  Silicon Graphics, Inc.
-Copyright (C) 1999, 2000, 2001, 2002  Mission Critical Linux, Inc.
-This program is free software, covered by the GNU General Public License,
-and you are welcome to change it and/or distribute copies of it under
-certain conditions.  Enter "help copying" to see the conditions.
-This program has absolutely no warranty.  Enter "help warranty" for details.
-
-GNU gdb (GDB) 7.6
-Copyright (C) 2013 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
-and "show warranty" for details.
-This GDB was configured as "x86_64-unknown-linux-gnu"...
-
-      KERNEL: /usr/lib/debug/boot/vmlinux-3.13.0-48-generic
-    DUMPFILE: /proc/kcore
-        CPUS: 4
-        DATE: Mon Jun 15 21:11:02 2015
-      UPTIME: 00:29:43
-LOAD AVERAGE: 0.15, 0.05, 0.06
-       TASKS: 224
-    NODENAME: gavin-Inspiron-7447
-     RELEASE: 3.13.0-48-generic
-     VERSION: #80~precise1hf00073670v20150319b2-Ubuntu SMP Thu Mar 19 11:01:43
-     MACHINE: x86_64  (2793 Mhz)
-      MEMORY: 3.9 GB
-         PID: 2370
-     COMMAND: "crash"
-        TASK: ffff8800b30fb000  [THREAD_INFO: ffff8800b4a74000]
-         CPU: 0
-       STATE: TASK_RUNNING (ACTIVE)
-</code></pre>
-
-<p>可以嘗試看看下面的指令</p>
-
-<pre><code>crash&gt; p *(struct kmem_cache *) kmalloc_caches
-crash&gt; p saved_command_line
-crash&gt; p uts_init_ns
-crash&gt; log
-crash&gt; kmem -S
-crash&gt; help
-</code></pre>
-
-<p>當然會有疑惑，這能不能直接把 kernel 停下來，像是 gdb 一樣 debug？答案當然是不行。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2017/08/12/kernel-debugging-xiao-ji-qiao/">Kernel Debugging 小技巧</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Top Categories</h1>
-    <ul id="top-category-list"><li><a href='/blog/categories/kdump'>kdump (1)</a></li><li><a href='/blog/categories/debug'>debug (1)</a></li><li><a href='/blog/categories/kernel'>kernel (1)</a></li></ul>
-</section>
-<section>
-  <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/debug'>debug (1)</a></li><li><a href='/blog/categories/kdump'>kdump (1)</a></li><li><a href='/blog/categories/kernel'>kernel (1)</a></li></ul>
-</section>
-<section>
-  <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/debug' style='font-size: 160.0%'>debug(1)</a> <a href='/blog/categories/kdump' style='font-size: 160.0%'>kdump(1)</a> <a href='/blog/categories/kernel' style='font-size: 160.0%'>kernel(1)</a> </span>
-</section>
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2017 - Gavin Guo -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'gavinguo';
       
         
-        var disqus_script = 'count.js';
+          
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.1.1.min.js" integrity="sha384-kLr4fYcqcSpbuI95brIH3vnnYCquzzSxHPU6XGQCIkQRGJwhg0StNbj1eegrHs12" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
       
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="b82dfcfd-216a-4aaf-a6d6-af6e86345079" data-root-id="1001"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="1156">
+          {"484dff12-3f97-4e93-a2d1-1543017facfb":{"roots":{"references":[{"attributes":{},"id":"1010","type":"LinearScale"},{"attributes":{"dimension":"height","line_color":"green","line_dash":[6],"line_width":3,"location":535},"id":"1056","type":"Span"},{"attributes":{"data":{"color":["#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#aec7e8","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e","#ff7f0e"],"counts":[99,9,12,12,14,21,14,8,15,13,21,21,17,25,27,27,22,27,16,14,13,12,7,110,10,12,15,20,12,14,13,16,20,13,17,24,31,25,16,25,20,13,13,13,9,6],"grade":[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7],"index":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22],"left":{"__ndarray__":"AAAAAADQe0CGLGQhC2l8QAtZyEIWAn1AkYUsZCGbfUAWspCFLDR+QJze9KY3zX5AIQtZyEJmf0CnN73pTf9/QBaykIUsTIBAWchCFrKYgECc3vSmN+WAQN/0pje9MYFAIQtZyEJ+gUBkIQtZyMqBQKc3velNF4JA6k1vetNjgkAsZCELWbCCQG9605ve/IJAspCFLGRJg0D1pje96ZWDQDi96U1v4oNAetOb3vQuhEC96U1venuEQAAAAAAA0HtAhixkIQtpfEALWchCFgJ9QJGFLGQhm31AFrKQhSw0fkCc3vSmN81+QCELWchCZn9Apze96U3/f0AWspCFLEyAQFnIQhaymIBAnN70pjflgEDf9KY3vTGBQCELWchCfoFAZCELWcjKgUCnN73pTReCQOpNb3rTY4JALGQhC1mwgkBvetOb3vyCQLKQhSxkSYNA9aY3vemVg0A4velNb+KDQHrTm970LoRAvelNb3p7hEA=","dtype":"float64","order":"little","shape":[46]},"right":{"__ndarray__":"hixkIQtpfEALWchCFgJ9QJGFLGQhm31AFrKQhSw0fkCc3vSmN81+QCELWchCZn9Apze96U3/f0AWspCFLEyAQFnIQhaymIBAnN70pjflgEDf9KY3vTGBQCELWchCfoFAZCELWcjKgUCnN73pTReCQOpNb3rTY4JALGQhC1mwgkBvetOb3vyCQLKQhSxkSYNA9aY3vemVg0A4velNb+KDQHrTm970LoRAvelNb3p7hEAAAAAAAMiEQIYsZCELaXxAC1nIQhYCfUCRhSxkIZt9QBaykIUsNH5AnN70pjfNfkAhC1nIQmZ/QKc3velN/39AFrKQhSxMgEBZyEIWspiAQJze9KY35YBA3/SmN70xgUAhC1nIQn6BQGQhC1nIyoFApze96U0XgkDqTW9602OCQCxkIQtZsIJAb3rTm978gkCykIUsZEmDQPWmN73plYNAOL3pTW/ig0B605ve9C6EQL3pTW96e4RAAAAAAADIhEA=","dtype":"float64","order":"little","shape":[46]},"scores":[445,455,465,475,485,495,505,515,525,535,545,555,565,575,585,595,605,615,625,635,645,655,665,445,455,465,475,485,495,505,515,525,535,545,555,565,575,585,595,605,615,625,635,645,655,665],"term":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]},"selected":{"id":"1042"},"selection_policy":{"id":"1041"}},"id":"1028","type":"ColumnDataSource"},{"attributes":{},"id":"1004","type":"DataRange1d"},{"attributes":{"render_mode":"css","text":"pr50:535 \u5317\u5e02\u516c\u7acb\u9ad8\u4e2d","x":535,"y":60},"id":"1057","type":"Label"},{"attributes":{"callback":null,"mode":"vline","tooltips":[["grade","@grade"],["term","@term"],["scores","@scores"],["counts","@counts"]]},"id":"1058","type":"HoverTool"},{"attributes":{},"id":"1008","type":"LinearScale"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1020"},{"id":"1021"},{"id":"1022"},{"id":"1058"}]},"id":"1024","type":"Toolbar"},{"attributes":{"start":0},"id":"1006","type":"DataRange1d"},{"attributes":{"axis":{"id":"1016"},"dimension":1,"grid_line_color":"white","ticker":null},"id":"1019","type":"Grid"},{"attributes":{},"id":"1022","type":"ResetTool"},{"attributes":{},"id":"1020","type":"WheelZoomTool"},{"attributes":{"bottom":{"value":0},"fill_alpha":{"value":0.5},"fill_color":{"field":"color"},"left":{"field":"left"},"line_alpha":{"value":0.5},"line_color":{"value":"white"},"right":{"field":"right"},"top":{"field":"counts"}},"id":"1030","type":"Quad"},{"attributes":{"bottom":{"value":0},"fill_alpha":{"value":0.1},"fill_color":{"field":"color"},"left":{"field":"left"},"line_alpha":{"value":0.1},"line_color":{"value":"white"},"right":{"field":"right"},"top":{"field":"counts"}},"id":"1031","type":"Quad"},{"attributes":{"overlay":{"id":"1023"}},"id":"1021","type":"BoxZoomTool"},{"attributes":{},"id":"1041","type":"UnionRenderers"},{"attributes":{},"id":"1042","type":"Selection"},{"attributes":{"render_mode":"css","text":"pr93:636.4 \u5efa\u5317","x":638.4,"y":110},"id":"1047","type":"Label"},{"attributes":{},"id":"1036","type":"BasicTickFormatter"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","top_units":"screen"},"id":"1023","type":"BoxAnnotation"},{"attributes":{"text":"\u5929\u6bcd\u570b\u4e2d\u4e03\u5e74\u7d1a\u5169\u6b21\u6bb5\u8003\u6bd4\u8f03(\u7de8\u865f1\u70ba\u7b2c\u4e00\u6b21\uff0c2\u70ba\u7b2c\u4e8c\u6b21), PR\u6a19\u7dda\u6839\u64da\u7b2c\u4e8c\u6b21\u6bb5\u8003"},"id":"1002","type":"Title"},{"attributes":{"bottom":{"value":0},"fill_color":{"field":"color"},"left":{"field":"left"},"line_alpha":{"value":0.5},"line_color":{"value":"white"},"right":{"field":"right"},"top":{"field":"counts"}},"id":"1032","type":"Quad"},{"attributes":{"dimension":"height","line_color":"green","line_dash":[6],"line_width":3,"location":550},"id":"1054","type":"Span"},{"attributes":{"axis_label":"\u4eba\u6578","formatter":{"id":"1038"},"ticker":{"id":"1017"}},"id":"1016","type":"LinearAxis"},{"attributes":{"dimension":"height","line_color":"green","line_dash":[6],"line_width":3,"location":636.4},"id":"1046","type":"Span"},{"attributes":{"render_mode":"css","text":"pr86:614 \u524d\u4e09\u5fd7\u9858","x":616,"y":100},"id":"1049","type":"Label"},{"attributes":{"dimension":"height","line_color":"green","line_dash":[6],"line_width":3,"location":614},"id":"1048","type":"Span"},{"attributes":{},"id":"1038","type":"BasicTickFormatter"},{"attributes":{"index":0,"label":{"value":"1"},"renderers":[{"id":"1033"}]},"id":"1044","type":"LegendItem"},{"attributes":{"axis":{"id":"1012"},"grid_line_color":"white","ticker":null},"id":"1015","type":"Grid"},{"attributes":{"background_fill_color":"#fafafa","below":[{"id":"1012"}],"center":[{"id":"1015"},{"id":"1019"},{"id":"1043"},{"id":"1046"},{"id":"1047"},{"id":"1048"},{"id":"1049"},{"id":"1050"},{"id":"1051"},{"id":"1052"},{"id":"1053"},{"id":"1054"},{"id":"1055"},{"id":"1056"},{"id":"1057"}],"left":[{"id":"1016"}],"renderers":[{"id":"1033"}],"title":{"id":"1002"},"toolbar":{"id":"1024"},"x_range":{"id":"1004"},"x_scale":{"id":"1008"},"y_range":{"id":"1006"},"y_scale":{"id":"1010"}},"id":"1001","subtype":"Figure","type":"Plot"},{"attributes":{"dimension":"height","line_color":"green","line_dash":[6],"line_width":3,"location":602},"id":"1050","type":"Span"},{"attributes":{},"id":"1017","type":"BasicTicker"},{"attributes":{"source":{"id":"1028"}},"id":"1034","type":"CDSView"},{"attributes":{"index":23,"label":{"value":"2"},"renderers":[{"id":"1033"}]},"id":"1045","type":"LegendItem"},{"attributes":{"background_fill_color":"#fefefe","items":[{"id":"1044"},{"id":"1045"}],"location":"center_right"},"id":"1043","type":"Legend"},{"attributes":{},"id":"1013","type":"BasicTicker"},{"attributes":{"render_mode":"css","text":"pr80:602 \u677e\u5c71","x":604,"y":90},"id":"1051","type":"Label"},{"attributes":{"axis_label":"\u5206\u6578\u5340\u9593","formatter":{"id":"1036"},"ticker":{"id":"1013"}},"id":"1012","type":"LinearAxis"},{"attributes":{"dimension":"height","line_color":"green","line_dash":[6],"line_width":3,"location":580},"id":"1052","type":"Span"},{"attributes":{"render_mode":"css","text":"pr70:580 \u5927\u76f4\u3001\u9e97\u5c71\u3001\u5927\u540c","x":582,"y":80},"id":"1053","type":"Label"},{"attributes":{"data_source":{"id":"1028"},"glyph":{"id":"1030"},"hover_glyph":{"id":"1032"},"muted_glyph":null,"nonselection_glyph":{"id":"1031"},"selection_glyph":null,"view":{"id":"1034"}},"id":"1033","type":"GlyphRenderer"},{"attributes":{"render_mode":"css","text":"pr55:550 \u4e2d\u6b63\u3001\u666f\u7f8e\u3001\u5167\u6e56\u3001\u548c\u5e73\u3001\u897f\u677e","x":552,"y":70},"id":"1055","type":"Label"}],"root_ids":["1001"]},"title":"Bokeh Application","version":"2.1.1"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('1156').textContent;
+                  var render_items = [{"docid":"484dff12-3f97-4e93-a2d1-1543017facfb","root_ids":["1001"],"roots":{"1001":"b82dfcfd-216a-4aaf-a6d6-af6e86345079"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        clearInterval(timer);
+                        embed_document(root);
+                      } else {
+                        attempts++;
+                        if (attempts > 100) {
+                          clearInterval(timer);
+                          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        }
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
 </html>
